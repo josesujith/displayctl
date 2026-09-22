@@ -5,7 +5,7 @@
 # artifacts. It is also how menu bar apps are normally distributed.
 #
 # To publish:
-#   1. push this repo to GitHub and fill in OWNER below
+#   1. push this repo to GitHub
 #   2. ./make-app.sh
 #      ditto -c -k --sequesterRsrc --keepParent DisplayCtl.app DisplayCtl-0.1.0.zip
 #      shasum -a 256 DisplayCtl-0.1.0.zip
@@ -13,16 +13,16 @@
 #   4. put this file in the Casks directory of a tap repo named homebrew-tap
 #
 # Users then run:
-#   brew tap OWNER/tap
+#   brew tap josesujith/tap
 #   brew install --cask displayctl
 cask "displayctl" do
   version "0.1.0"
   sha256 "FILL_IN_FROM_THE_ZIP"
 
-  url "https://github.com/OWNER/displayctl/releases/download/v#{version}/DisplayCtl-#{version}.zip"
+  url "https://github.com/josesujith/displayctl/releases/download/v#{version}/DisplayCtl-#{version}.zip"
   name "DisplayCtl"
   desc "Menu bar app and CLI to connect, disconnect and control macOS displays"
-  homepage "https://github.com/OWNER/displayctl"
+  homepage "https://github.com/josesujith/displayctl"
 
   depends_on arch: :arm64
   depends_on macos: :ventura

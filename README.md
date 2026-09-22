@@ -66,12 +66,10 @@ runs with no terminal attached.
 ## Installing with Homebrew
 
 `Casks/displayctl.rb` installs the app into `/Applications` and the `displayctl`
-CLI into the Homebrew prefix. Publish it by pushing this repo to GitHub,
-filling in OWNER in the cask, attaching a zip of `DisplayCtl.app` to a release,
-and putting the file in a tap repo called `homebrew-tap`. Then:
+CLI into the Homebrew prefix:
 
 ```
-brew tap OWNER/tap
+brew tap josesujith/tap
 brew install --cask displayctl
 xattr -dr com.apple.quarantine /Applications/DisplayCtl.app
 ```
@@ -92,6 +90,13 @@ not enough, it checks `Xcode.app` too.
 
 After a cask install, `./install.sh` reuses `/Applications/DisplayCtl.app`
 rather than making a second copy.
+
+## Releasing
+
+`./publish.sh 0.1.0` builds the app, zips it, tags, pushes, creates the GitHub
+release with the zip attached, and updates the cask with the new version and
+checksum. It needs the GitHub CLI (`brew install gh && gh auth login`), and
+updates `../homebrew-tap` too when that repo is checked out beside this one.
 
 ## Connect and disconnect
 

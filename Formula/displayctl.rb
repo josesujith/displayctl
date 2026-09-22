@@ -6,23 +6,23 @@
 # Homebrew refuses source builds otherwise.
 #
 # To publish:
-#   1. push this repo to GitHub and fill in OWNER below
+#   1. push this repo to GitHub
 #   2. tag v0.1.0, then get the checksum with
-#      curl -sL https://github.com/OWNER/displayctl/archive/refs/tags/v0.1.0.tar.gz | shasum -a 256
+#      curl -sL https://github.com/josesujith/displayctl/archive/refs/tags/v0.1.0.tar.gz | shasum -a 256
 #   3. paste it below and put this file in the Formula directory of a tap repo
 #      named homebrew-tap
 #
 # Users then run:
-#   brew tap OWNER/tap
+#   brew tap josesujith/tap
 #   brew install displayctl
 #   brew services start displayctl
 class Displayctl < Formula
   desc "Menu bar app and CLI to connect, disconnect and control macOS displays"
-  homepage "https://github.com/OWNER/displayctl"
-  url "https://github.com/OWNER/displayctl/archive/refs/tags/v0.1.0.tar.gz"
+  homepage "https://github.com/josesujith/displayctl"
+  url "https://github.com/josesujith/displayctl/archive/refs/tags/v0.1.0.tar.gz"
   sha256 "FILL_IN_AFTER_TAGGING"
   license "MIT"
-  head "https://github.com/OWNER/displayctl.git", branch: "main"
+  head "https://github.com/josesujith/displayctl.git", branch: "main"
 
   depends_on "go" => :build
   depends_on arch: :arm64 # display control uses Apple Silicon APIs
