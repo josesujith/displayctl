@@ -70,4 +70,4 @@ fi
 
 echo
 echo "released v$VERSION  sha256=$SHA"
-echo "install with: brew tap josesujith/tap && brew install --cask displayctl"
+echo "install with: brew install --cask josesujith/tap/displayctl"

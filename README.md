@@ -69,12 +69,15 @@ runs with no terminal attached.
 CLI into the Homebrew prefix:
 
 ```
-brew tap josesujith/tap
-brew install --cask displayctl
+brew install --cask josesujith/tap/displayctl
 xattr -dr com.apple.quarantine /Applications/DisplayCtl.app
 ```
 
-That last line is needed because the build is ad-hoc signed rather than
+Use the full name, `josesujith/tap/displayctl`. Homebrew 7 refuses to load
+anything from a tap you have not trusted when you ask for it by its short name;
+installing it by its full name trusts it, and taps the repo if needed.
+
+The `xattr` line is needed because the build is ad-hoc signed rather than
 notarized, so Gatekeeper refuses to run it while Homebrew's quarantine flag is
 set — the symptom is a "could not verify ... free of malware" dialog, or the
 CLI dying instantly with exit 137. Homebrew 7 removed the `--no-quarantine`

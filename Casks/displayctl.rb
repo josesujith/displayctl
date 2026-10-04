@@ -13,8 +13,7 @@
 #   4. put this file in the Casks directory of a tap repo named homebrew-tap
 #
 # Users then run:
-#   brew tap josesujith/tap
-#   brew install --cask displayctl
+#   brew install --cask josesujith/tap/displayctl
 cask "displayctl" do
   version "0.1.0"
   sha256 "44af606d488552734af2975a5a58608ab9bfc61c98e772a3a60a17dd9d9c1b80"

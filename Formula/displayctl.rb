@@ -13,8 +13,7 @@
 #      named homebrew-tap
 #
 # Users then run:
-#   brew tap josesujith/tap
-#   brew install displayctl
+#   brew install josesujith/tap/displayctl
 #   brew services start displayctl
 class Displayctl < Formula
   desc "Menu bar app and CLI to connect, disconnect and control macOS displays"
