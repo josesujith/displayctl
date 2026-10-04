@@ -15,8 +15,8 @@
 # Users then run:
 #   brew install --cask josesujith/tap/displayctl
 cask "displayctl" do
-  version "0.1.0"
-  sha256 "44af606d488552734af2975a5a58608ab9bfc61c98e772a3a60a17dd9d9c1b80"
+  version "0.1.1"
+  sha256 "9e8659d10f2adef871ca9e03560a0239774bfe031acbf5272c7e6cffd4d28ec7"
 
   url "https://github.com/josesujith/displayctl/releases/download/v#{version}/DisplayCtl-#{version}.zip"
   name "DisplayCtl"
