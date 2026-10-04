@@ -22,7 +22,7 @@ git remote get-url origin >/dev/null 2>&1 || {
 	exit 1
 }
 
-./make-app.sh >/dev/null
+VERSION="$VERSION" ./make-app.sh >/dev/null
 mkdir -p dist
 rm -f "$ZIP"
 ditto -c -k --sequesterRsrc --keepParent DisplayCtl.app "$ZIP"
