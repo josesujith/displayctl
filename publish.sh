@@ -44,7 +44,10 @@ gh release create "v$VERSION" "$ZIP" --repo "$REPO" --title "v$VERSION" --genera
 # The formula builds from the tag's source tarball, which only exists once the
 # tag is pushed, so its checksum is filled in afterwards.
 TARBALL="https://github.com/$REPO/archive/refs/tags/v$VERSION.tar.gz"
-SRC_SHA=$(curl -fsSL "$TARBALL" | shasum -a 256 | cut -d' ' -f1)
+# Download to a file first: in a pipe, a failed download would go unnoticed and
+# leave the checksum of empty input. A 404 here usually means the repo is private.
+curl -fsSL -o dist/source.tar.gz "$TARBALL" || { echo "cannot download $TARBALL" >&2; exit 1; }
+SRC_SHA=$(shasum -a 256 dist/source.tar.gz | cut -d' ' -f1)
 sed -i '' -e "s|^  url \".*\"|  url \"$TARBALL\"|" \
           -e "s|^  sha256 \".*\"|  sha256 \"$SRC_SHA\"|" Formula/displayctl.rb
 git add Formula/displayctl.rb
