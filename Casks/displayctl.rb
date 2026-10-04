@@ -17,7 +17,7 @@
 #   brew install --cask displayctl
 cask "displayctl" do
   version "0.1.0"
-  sha256 "FILL_IN_FROM_THE_ZIP"
+  sha256 "a39ed8b14a2efd8d53c231487e658959c47dccd42deda07a547aef0252ec73bd"
 
   url "https://github.com/josesujith/displayctl/releases/download/v#{version}/DisplayCtl-#{version}.zip"
   name "DisplayCtl"
