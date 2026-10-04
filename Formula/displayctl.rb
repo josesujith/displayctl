@@ -19,7 +19,7 @@ class Displayctl < Formula
   desc "Menu bar app and CLI to connect, disconnect and control macOS displays"
   homepage "https://github.com/josesujith/displayctl"
   url "https://github.com/josesujith/displayctl/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "8d52342113ff1c88cace59e8849132567acbb721857ed001096a721a2fe417e4"
+  sha256 "e78696ac58397cea81e54a559bc50d3c783decd022b1266434d5133a25a0a21e"
   license "MIT"
   head "https://github.com/josesujith/displayctl.git", branch: "main"
 
