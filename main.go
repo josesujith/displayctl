@@ -15,6 +15,7 @@ import (
 	"text/tabwriter"
 
 	"displayctl/internal/display"
+	"displayctl/internal/login"
 	"displayctl/internal/menubar"
 )
 
@@ -27,6 +28,7 @@ const usage = `usage: displayctl [-d display] [-permanent] <command> [args]
 commands:
   list                   list all displays and whether they are connected
   menu                   run a menu bar app with a toggle per display
+  login [on|off]         show or change whether the menu bar app starts at login
   connect                reconnect a display
   disconnect             disconnect a display without unplugging it
   toggle                 connect or disconnect, whichever applies
@@ -68,8 +70,11 @@ func run(sel, cmd string, args []string) error {
 		return nil
 	}
 	if cmd == "menu" {
-		menubar.Run(menuItems, menuToggle)
+		menubar.Run(menuItems, menuToggle, menubar.Login{State: menuLogin, Toggle: menuLoginToggle})
 		return nil
+	}
+	if cmd == "login" {
+		return loginCmd(args)
 	}
 	d, err := pick(displays, sel)
 	if err != nil {
@@ -222,6 +227,48 @@ func menuToggle(id uint32) {
 			return
 		}
 	}
+}
+
+// menuLogin shows "Start at Login", disabled when brew services owns it.
+func menuLogin() (on, enabled bool, title string) {
+	if login.ByBrew() {
+		return true, false, "Start at Login (brew services)"
+	}
+	return login.Enabled(), true, "Start at Login"
+}
+
+func menuLoginToggle() {
+	var err error
+	if login.Enabled() {
+		err = login.Disable()
+	} else {
+		err = login.Enable()
+	}
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "displayctl:", err)
+	}
+}
+
+func loginCmd(args []string) error {
+	if login.ByBrew() {
+		fmt.Println("starts at login via brew services; change it with brew services start|stop displayctl")
+		return nil
+	}
+	switch strings.Join(args, " ") {
+	case "":
+	case "on":
+		if err := login.Enable(); err != nil {
+			return err
+		}
+	case "off":
+		if err := login.Disable(); err != nil {
+			return err
+		}
+	default:
+		return errors.New("usage: displayctl login [on|off]")
+	}
+	fmt.Println(map[bool]string{true: "starts at login", false: "does not start at login"}[login.Enabled()])
+	return nil
 }
 
 // setEnabled connects or disconnects, and says how to undo it, because a

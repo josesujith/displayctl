@@ -21,16 +21,23 @@ type Item struct {
 	Enabled bool
 }
 
+// Login is the "Start at Login" checkbox at the foot of the menu.
+type Login struct {
+	State  func() (on, enabled bool, title string)
+	Toggle func()
+}
+
 var (
 	itemsFn  func() []Item
 	toggleFn func(id uint32)
+	loginCfg Login
 )
 
 // Run shows the status item and runs the AppKit event loop. It does not
 // return. Call it from the main goroutine with the thread locked, since AppKit
 // insists on the main thread.
-func Run(items func() []Item, toggle func(id uint32)) {
-	itemsFn, toggleFn = items, toggle
+func Run(items func() []Item, toggle func(id uint32), login Login) {
+	itemsFn, toggleFn, loginCfg = items, toggle, login
 	C.mb_run()
 }
 
@@ -50,5 +57,23 @@ func menubarRebuild() {
 func menubarToggle(id C.uint32_t) {
 	if toggleFn != nil {
 		toggleFn(uint32(id))
+	}
+}
+
+//export menubarLogin
+func menubarLogin() {
+	if loginCfg.State == nil {
+		return
+	}
+	on, enabled, title := loginCfg.State()
+	t := C.CString(title)
+	C.mb_add_login(t, C.bool(on), C.bool(enabled))
+	C.free(unsafe.Pointer(t))
+}
+
+//export menubarLoginToggle
+func menubarLoginToggle() {
+	if loginCfg.Toggle != nil {
+		loginCfg.Toggle()
 	}
 }

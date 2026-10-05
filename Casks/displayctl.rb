@@ -46,7 +46,6 @@ cask "displayctl" do
     Homebrew 7 removed the --no-quarantine option, so this is the way.
     Signing with a Developer ID and notarizing removes the need for it.
 
-    To start it at login, add DisplayCtl to System Settings > General >
-    Login Items.
+    To start it at login, tick Start at Login in its menu.
   EOS
 end

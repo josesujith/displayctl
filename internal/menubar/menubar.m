@@ -46,6 +46,7 @@ static MBController *controller;
     menubarRebuild(); // Go calls mb_add_item for each display
 
     [menu addItem:[NSMenuItem separatorItem]];
+    menubarLogin(); // Go calls mb_add_login
     NSMenuItem *quit = [[NSMenuItem alloc] initWithTitle:@"Quit"
                                                   action:@selector(quit:)
                                            keyEquivalent:@"q"];
@@ -55,6 +56,10 @@ static MBController *controller;
 
 - (void)toggle:(NSMenuItem *)sender {
     menubarToggle((uint32_t)sender.tag);
+}
+
+- (void)toggleLogin:(NSMenuItem *)sender {
+    menubarLoginToggle();
 }
 
 - (void)quit:(id)sender {
@@ -81,6 +86,16 @@ void mb_add_item(const char *title, uint32_t id, bool on, bool enabled) {
                                            keyEquivalent:@""];
     item.target = controller;
     item.tag = (NSInteger)id;
+    item.state = on ? NSControlStateValueOn : NSControlStateValueOff;
+    item.enabled = enabled;
+    [displayMenu addItem:item];
+}
+
+void mb_add_login(const char *title, bool on, bool enabled) {
+    NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:@(title)
+                                                  action:@selector(toggleLogin:)
+                                           keyEquivalent:@""];
+    item.target = controller;
     item.state = on ? NSControlStateValueOn : NSControlStateValueOff;
     item.enabled = enabled;
     [displayMenu addItem:item];

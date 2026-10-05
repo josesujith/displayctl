@@ -43,6 +43,11 @@ Three ways to run it, in order of how long it sticks around:
 A display icon appears at the right of the menu bar, with no Dock icon. Quit
 from the menu itself.
 
+**Start at Login** in the menu, or `displayctl login on|off`, adds or removes
+the same launch agent `install.sh` uses (below). It takes effect from the next
+login. When `brew services` already starts displayctl, the item shows that and
+is left to brew.
+
 `install.sh` copies the bundle to `~/Applications` and adds a launch agent at
 `~/Library/LaunchAgents/local.displayctl.plist`. It has `RunAtLoad` but no
 `KeepAlive`, so Quit stays quit until the next login. Re-run it after changing
